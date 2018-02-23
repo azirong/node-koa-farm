@@ -32,13 +32,16 @@ module.exports = function (opts) {
                 return false
             }
 
-            //获取到的XML对象
+            //获取到的XML数据
             var data = yield getRawBody(this.req, {
                 length: this.length,
                 limit: '1mb',
                 encoding: this.charset
             })
 
+            var content = yield util.parseXMLAsync(data);
+
+            console.log(content);
         }
     }
 }
