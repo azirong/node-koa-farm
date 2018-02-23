@@ -13,7 +13,6 @@ module.exports = function (opts) {
         var nonce = this.query.nonce
         var timestamp = this.query.timestamp
         var echostr = this.query.echostr
-        // var str = [token, timestamp, nonce].sort().join('');
         var str = [token, timestamp, nonce]
         str = str.sort().join('')
         var sha = sha1(str)
@@ -40,7 +39,6 @@ module.exports = function (opts) {
                 encoding: this.charset
             })
 
-            console.log(data.toString())
         }
     }
 }
