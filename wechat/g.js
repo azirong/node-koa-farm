@@ -9,6 +9,7 @@ module.exports = function (opts) {
     // var wechat = new Wechat(opts)
 
     return function *(next) {
+        var that = this
         var token = opts.token
         var signature = this.query.signature
         var nonce = this.query.nonce
@@ -47,6 +48,30 @@ module.exports = function (opts) {
             var message = util.formatMessage(content.xml);  // 验证XML解析后的数据
 
             console.log(message)
+
+            if (message.MsgType === 'event') {
+                if (message.Event === 'subscribe') {
+                    var now = new Dat().getTime()
+
+                    that.status = 200
+                    that.type = 'application/xml'
+                    var reply = '<xml>' +
+                        '<ToUserName><![CDATA[' + message.FromUserName + ']]></ToUserName>' +
+                        '<FromUserName><![CDATA[' + message.ToUserName + ']]></FromUserName>' +
+                        '<CreateTime>' + now + '</CreateTime>' +
+                        '<MsgType><![CDATA[text]]></MsgType>' +
+                        '<Content><![CDATA[Hi,欢迎关注农业大棚管理系统]]></Content>' +
+                        '<MsgId>' + message.MsgId + '</MsgId>' +
+                        '</xml>'
+
+                    console.log(reply)
+
+                    that.body = reply
+                    return
+                }
+            }
         }
     }
 }
+
+
