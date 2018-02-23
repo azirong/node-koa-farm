@@ -42,7 +42,11 @@ module.exports = function (opts) {
 
             var content = yield util.parseXMLAsync(data);
 
-            console.log(content);
+            console.log(content)
+
+            var message = util.formatMessage(content.xml);  // 验证XML解析后的数据
+
+            console.log(message)
         }
     }
 }
