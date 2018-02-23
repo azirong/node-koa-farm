@@ -51,7 +51,7 @@ module.exports = function (opts) {
 
             if (message.MsgType === 'event') {
                 if (message.Event === 'subscribe') {
-                    var now = new Dat().getTime()
+                    var now = new Date().getTime()
 
                     that.status = 200
                     that.type = 'application/xml'
